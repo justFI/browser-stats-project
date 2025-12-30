@@ -6,6 +6,8 @@
     <title>全球浏览器市场份额指数 (含AI分析)</title>
     <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- 引入 Google Fonts 的 Inter 字体 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,6 +61,71 @@
                 <div id="browser-stats" class="space-y-6">
                     <!-- 数据将由JS动态生成 -->
                 </div>
+            </div>
+
+            <!-- 数据可视化图表区域 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 饼图：当前市场份额 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                    <h2 class="text-xl font-bold mb-4 text-gray-900 flex items-center">
+                        <span class="mr-2 text-purple-600" data-lucide="pie-chart"></span> 市场份额分布
+                    </h2>
+                    <div class="relative h-64">
+                         <canvas id="sharePieChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 折线图：近期趋势 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                    <h2 class="text-xl font-bold mb-4 text-gray-900 flex items-center">
+                        <span class="mr-2 text-blue-600" data-lucide="activity"></span> 近期趋势 (模拟数据)
+                    </h2>
+                    <div class="relative h-64">
+                        <canvas id="trendLineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI 浏览器对比模块 -->
+            <div id="ai-comparison-section" class="bg-gradient-to-br from-indigo-50 to-purple-100 p-6 md:p-8 rounded-xl shadow-lg border border-indigo-200">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold flex items-center text-gray-900">
+                        <span class="text-indigo-600 mr-2" data-lucide="arrow-left-right"></span> AI 浏览器深度对比
+                    </h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center mb-6">
+                    <!-- 浏览器 A 选择 -->
+                    <div class="relative">
+                        <select id="browserA" class="block appearance-none w-full bg-white border border-gray-300 hover:border-indigo-400 px-4 py-3 pr-8 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 font-medium">
+                            <!-- JS 填充选项 -->
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                            <span data-lucide="chevron-down" class="w-4 h-4"></span>
+                        </div>
+                    </div>
+
+                    <div class="text-center font-bold text-gray-400 text-lg">VS</div>
+
+                    <!-- 浏览器 B 选择 -->
+                    <div class="relative">
+                        <select id="browserB" class="block appearance-none w-full bg-white border border-gray-300 hover:border-indigo-400 px-4 py-3 pr-8 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 font-medium">
+                            <!-- JS 填充选项 -->
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                            <span data-lucide="chevron-down" class="w-4 h-4"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mb-6">
+                    <button id="compareBtn" class="bg-indigo-600 text-white font-bold py-3 px-10 rounded-full hover:bg-indigo-700 transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center mx-auto shadow-lg disabled:bg-indigo-300 disabled:transform-none">
+                        <span id="compare-btn-text" class="mr-2">开始对比分析</span>
+                        <div id="compare-loader" class="loader w-5 h-5 border-2 border-white border-t-transparent rounded-full hidden"></div>
+                    </button>
+                </div>
+
+                <div id="comparison-result" class="p-6 bg-white rounded-lg border border-indigo-100 text-gray-700 hidden shadow-inner leading-relaxed"></div>
             </div>
 
             <!-- AI 分析模块 -->
